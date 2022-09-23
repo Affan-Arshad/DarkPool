@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\API\InvestmentController;
+use App\Http\Controllers\API\InvestorController;
+use App\Http\Controllers\API\ProjectController;
+use App\Http\Controllers\API\ProjectCostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +20,41 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+// Investors
+Route::get("/investors", [InvestorController::class, "index"]);
+Route::get("/investors/{investor}", [InvestorController::class, "show"]);
+Route::post("/investors", [InvestorController::class, "store"]);
+Route::put("/investors/{investor}", [InvestorController::class, "update"]);
+Route::delete("/investors/{investor}", [InvestorController::class, "destroy"]);
+
+// Investments
+Route::get("/investments", [InvestmentController::class, "index"]);
+Route::get("/investments/{investment}", [InvestmentController::class, "show"]);
+Route::post("/investments", [InvestmentController::class, "store"]);
+Route::put("/investments/{investment}", [InvestmentController::class, "update"]);
+Route::delete("/investments/{investment}", [InvestmentController::class, "destroy"]);
+
+// Projects
+Route::get("/projects", [ProjectController::class, "index"]);
+Route::get("/projects/{project}", [ProjectController::class, "show"]);
+Route::post("/projects", [ProjectController::class, "store"]);
+Route::put("/projects/{project}", [ProjectController::class, "update"]);
+Route::delete("/projects/{project}", [ProjectController::class, "destroy"]);
+
+// ProjectCost
+Route::get("/projects/{project}/costs", [ProjectCostController::class, "index"]);
+Route::get("/projects/{project}/costs/{cost}", [ProjectCostController::class, "show"]);
+Route::post("/projects/{project}/costs", [ProjectCostController::class, "store"]);
+Route::put("/projects/{project}/costs/{cost}", [ProjectCostController::class, "update"]);
+Route::delete("/projects/{project}/costs/{cost}", [ProjectCostController::class, "destroy"]);
+
+// dev
+Route::get("/balance", function () {
+    return [
+        "balance" => PoolHelper::availableBalance(),
+        "balanceByInvestor" => PoolHelper::availableBalanceByInvestor(),
+        "runningCostsByInvestor" => PoolHelper::runningCostsByInvestor()
+    ];
 });
