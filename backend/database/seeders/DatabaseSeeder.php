@@ -18,10 +18,11 @@ class DatabaseSeeder extends Seeder {
     public function run() {
         // \App\Models\User::factory(10)->create();
 
-        Investor::create([
-            'name' => 'Company Account',
-            'account_no' => '7770000022017',
-        ]);
+        // Investor::create([
+        //     'name' => 'Company Account',
+        //     'account_no' => '7770000022017',
+        //     'account_name' => 'OAuthX Pvt Ltd',
+        // ]);
 
         Investor::factory(5)->create()->each(function ($investor) {
             Investment::factory(rand(1, 4))->create([
@@ -29,11 +30,11 @@ class DatabaseSeeder extends Seeder {
             ]);
         });
 
-        Project::factory(5)->create();
-        // ->each(function ($project) {
-        //     ProjectCost::factory(rand(1, 4))->create([
-        //         'project_id' => $project->id
-        //     ]);
-        // });
+        Project::factory(5)->create()
+            ->each(function ($project) {
+                ProjectCost::factory(rand(1, 4))->create([
+                    'project_id' => $project->id
+                ]);
+            });
     }
 }

@@ -15,6 +15,7 @@ class CreateInvestorsTable extends Migration {
             $table->id();
             $table->string("name");
             $table->string("account_no");
+            $table->string("account_name");
             $table->timestamps();
         });
     }
