@@ -4,6 +4,7 @@ use App\Http\Controllers\API\InvestmentController;
 use App\Http\Controllers\API\InvestorController;
 use App\Http\Controllers\API\ProjectController;
 use App\Http\Controllers\API\ProjectCostController;
+use App\Models\Investor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,10 +52,20 @@ Route::put("/projects/{project}/costs/{cost}", [ProjectCostController::class, "u
 Route::delete("/projects/{project}/costs/{cost}", [ProjectCostController::class, "destroy"]);
 
 // dev
-Route::get("/balance", function () {
+Route::get("/balances", function () {
+    $totalBalance = PoolHelper::totalBalance();
+    $activeProjectCosts = PoolHelper::activeProjectCosts();
+    $availableBalance = $totalBalance - $activeProjectCosts;
+    $balanceByInvestor = PoolHelper::availableBalanceByInvestor();
+    $runningCostsByInvestor = PoolHelper::runningCostsByInvestor();
+    $totalInvestors = Investor::all()->count();
+
     return [
-        "balance" => PoolHelper::availableBalance(),
-        "balanceByInvestor" => PoolHelper::availableBalanceByInvestor(),
-        "runningCostsByInvestor" => PoolHelper::runningCostsByInvestor()
+        "totalBalance" => $totalBalance,
+        "activeProjectCosts" => $activeProjectCosts,
+        "availableBalance" => $availableBalance,
+        "balanceByInvestor" => $balanceByInvestor,
+        "runningCostsByInvestor" => $runningCostsByInvestor,
+        "totalInvestors" => $totalInvestors,
     ];
 });

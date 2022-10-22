@@ -14,7 +14,7 @@ class ProjectCostFactory extends Factory {
      * @return array
      */
     public function definition() {
-        $amount = ceil($this->faker->numberBetween(1000, 100000) / 10) * 10;
+        $amount = ceil($this->faker->numberBetween(10000, 100000) / 10) * 10;
         $date = $this->faker->dateTimeBetween('-12 months', 'now');
         $availableBalance = PoolHelper::availableBalance();
         if ($amount > $availableBalance) {

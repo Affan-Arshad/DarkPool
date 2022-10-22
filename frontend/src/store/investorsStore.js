@@ -3,6 +3,7 @@ import axios from "axios";
 
 import { devtools, persist } from "zustand/middleware";
 import { v4 } from "uuid";
+import errorMessage from "../helpers/errorMessage";
 
 const investorsStore = (set) => ({
     investors: [],
@@ -17,8 +18,7 @@ const investorsStore = (set) => ({
                 const investors = response.data;
                 set({ investors, loading: false });
             }).catch((error) => {
-                error = error.response ? error.response.data.message : error.message;
-                error = "investorsStore->fetchInvestors(): " + error;
+                error = errorMessage(error, "fetchInvestors");
                 set({ error: error, loading: false });
             })
     },
@@ -29,8 +29,7 @@ const investorsStore = (set) => ({
             .then((response) => {
                 set({ investor: response.data, loading: false });
             }).catch((error) => {
-                error = error.response ? error.response.data.message : error.message;
-                error = "investorsStore->fetchInvestor(): " + error;
+                error = errorMessage(error, "fetchInvestor");
                 set({ error: error, loading: false });
             })
     },
@@ -44,22 +43,21 @@ const investorsStore = (set) => ({
                     loading: false
                 }));
             }).catch((error) => {
-                error = error.response ? error.response.data.message : error.message;
-                error = "investorsStore->addInvestor(): " + error;
+                error = errorMessage(error, "addInvestor");
                 set({ error: error, loading: false });
             })
     },
 
     deleteInvestor: (investorId) => {
         set({ error: null })
+        const fn = this;
         axios.delete(`http://localhost:8000/api/investors/${investorId}`)
             .then((response) => {
                 set((state) => ({
                     investors: state.investors.filter((p) => p.id !== investorId)
                 }));
             }).catch((error) => {
-                error = error.response ? error.response.data.message : error.message;
-                error = "investorsStore->deleteInvestor(): " + error;
+                error = errorMessage(error, "deleteInvestor");
                 set({ error: error })
             });
     }

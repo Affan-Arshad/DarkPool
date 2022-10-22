@@ -18,13 +18,13 @@ class DatabaseSeeder extends Seeder {
     public function run() {
         // \App\Models\User::factory(10)->create();
 
-        // Investor::create([
-        //     'name' => 'Company Account',
-        //     'account_no' => '7770000022017',
-        //     'account_name' => 'OAuthX Pvt Ltd',
-        // ]);
+        Investor::create([
+            'name' => 'Company Account',
+            'account_no' => '7770000022017',
+            'account_name' => 'OAuthX Pvt Ltd',
+        ]);
 
-        Investor::factory(5)->create()->each(function ($investor) {
+        Investor::factory(rand(100, 1000))->create()->each(function ($investor) {
             Investment::factory(rand(1, 4))->create([
                 'investor_id' => $investor->id
             ]);
@@ -32,9 +32,11 @@ class DatabaseSeeder extends Seeder {
 
         Project::factory(5)->create()
             ->each(function ($project) {
-                ProjectCost::factory(rand(1, 4))->create([
-                    'project_id' => $project->id
-                ]);
+                for ($i = 0; $i < rand(1, 2); $i++) {
+                    ProjectCost::factory(1)->create([
+                        'project_id' => $project->id
+                    ]);
+                }
             });
     }
 }

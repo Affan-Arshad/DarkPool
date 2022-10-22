@@ -5,11 +5,17 @@ use App\Models\Investor;
 use App\Models\Project;
 
 class PoolHelper {
-    public static function availableBalance() {
-        $allInvestments = Investment::sum('amount');
-        $activeProjectCosts = Project::where('status', 'WIP')->withSum('costs', 'amount')->get()->sum('costs_sum_amount');
 
-        return $allInvestments - $activeProjectCosts;
+    public static function totalBalance() {
+        return Investment::sum('amount');
+    }
+
+    public static function activeProjectCosts() {
+        return Project::where('status', 'WIP')->withSum('costs', 'amount')->get()->sum('costs_sum_amount');
+    }
+
+    public static function availableBalance() {
+        return PoolHelper::totalBalance() - PoolHelper::activeProjectCosts();
     }
 
     public static function investorsRatio() {

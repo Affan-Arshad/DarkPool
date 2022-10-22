@@ -12,7 +12,7 @@ class InvestmentFactory extends Factory {
      */
     public function definition() {
         return [
-            'amount' => ceil($this->faker->numberBetween(100, 10000) / 100) * 100,
+            'amount' => ceil($this->faker->numberBetween(100, 1000) / 100) * 100,
             'date' => $this->faker->dateTimeBetween('-12 months', 'now'),
             'type' => 'investment'
         ];

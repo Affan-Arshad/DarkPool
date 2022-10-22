@@ -11,6 +11,7 @@ import ProjectsIndexPage from "./pages/ProjectsIndexPage";
 import Error from './components/Error';
 import useInvestorsStore from './store/investorsStore';
 import useProjectsStore from './store/projectsStore';
+import DashboardPage from './pages/DashboardPage';
 
 export default function App() {
   const investorsStore = useInvestorsStore();
@@ -20,27 +21,37 @@ export default function App() {
   return (
     <Router>
       <div className="container mx-auto">
+
         {/* Navigation */}
         <header className="flex justify-center border-b">
           <Link className="px-3 py-1 block border" to="/">
+            Dashboard
+          </Link>
+          <Link className="px-3 py-1 block border" to="/Projects">
             Projects
           </Link>
           <Link className="px-3 py-1 block border" to="/Investors">
             Investors
           </Link>
-          <Link className="px-3 py-1 block border" to="/PoolDetails">
+          {/* <Link className="px-3 py-1 block border" to="/PoolDetails">
             Pool Details
-          </Link>
+          </Link> */}
         </header>
+
         {/* Main content area */}
         <section className="p-6">
 
           {errors && errors.map((e, i) => e && (<Error key={i} error={e} />))}
+
+          {/* Routes */}
           <Routes>
             <Route exact path="/" element={
+              <DashboardPage />
+            } />
+            <Route exact path="/Projects" element={
               <ProjectsIndexPage />
             } />
-            <Route exact path="/Project/:id" element={
+            <Route exact path="/Projects/:id" element={
               <ProjectsShowPage />
             } />
             <Route exact path="/Investors" element={
@@ -49,12 +60,15 @@ export default function App() {
             <Route exact path="/Investors/:id" element={
               <InvestorsShowPage />
             } />
-            <Route exact path="/PoolDetails" element={
+            {/* <Route exact path="/PoolDetails" element={
               <PoolDetailsPage />
-            } />
+            } /> */}
           </Routes>
+
         </section>
+
       </div>
+
     </Router>
   );
 }

@@ -10,7 +10,7 @@ const ProjectListItem = (props) => {
     };
     return (
         <div className="flex justify-between border-b items-center">
-            <Link to={`/Project/${project.id}`}>
+            <Link to={`/Projects/${project.id}`}>
                 <h1>{project.name}</h1>
             </Link>
             <button className="p-1" onClick={handleDelete}>

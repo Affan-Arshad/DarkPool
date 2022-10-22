@@ -3,10 +3,12 @@ import axios from "axios";
 
 import { devtools, persist } from "zustand/middleware";
 import { v4 } from "uuid";
+import errorMessage from "../helpers/errorMessage";
 
-const projectsStore = (set, get) => ({
+const projectsStore = (set) => ({
     projects: [],
     project: {},
+    balances: [],
     loading: false,
     error: null,
     fetchProjects: () => {
@@ -16,8 +18,7 @@ const projectsStore = (set, get) => ({
                 const projects = response.data;
                 set({ projects, loading: false });
             }).catch((error) => {
-                error = error.response ? error.response.data.message : error.message;
-                error = "projectsStore->fetchProjects(): " + error;
+                error = errorMessage(error, "fetchProjects");
                 set({ error: error, loading: false });
             })
     },
@@ -28,8 +29,7 @@ const projectsStore = (set, get) => ({
             .then((response) => {
                 set({ project: response.data, loading: false });
             }).catch((error) => {
-                error = error.response ? error.response.data.message : error.message;
-                error = "projectsStore->fetchProject(): " + error;
+                error = errorMessage(error, "fetchProject");
                 set({ error: error, loading: false });
             })
     },
@@ -43,8 +43,7 @@ const projectsStore = (set, get) => ({
                     loading: false
                 }));
             }).catch((error) => {
-                error = error.response ? error.response.data.message : error.message;
-                error = "projectsStore->addProject(): " + error;
+                error = errorMessage(error, "addProject");
                 set({ error: error, loading: false });
             })
     },
@@ -56,8 +55,7 @@ const projectsStore = (set, get) => ({
                     projects: state.projects.filter((p) => p.id !== projectId)
                 }));
             }).catch((error) => {
-                error = error.response ? error.response.data.message : error.message;
-                error = "projectsStore->deleteProject(): " + error;
+                error = errorMessage(error, "deleteProject");
                 set({ error: error })
             });
     },
@@ -67,6 +65,20 @@ const projectsStore = (set, get) => ({
                 p.id === projectId ? { ...p, status: status } : p
             )
         }));
+    }
+    ,
+    fetchBalances: () => {
+        set({ error: null, loading: true });
+        axios.get(`http://localhost:8000/api/balances`)
+            .then((response) => {
+                set((state) => ({
+                    balances: response.data,
+                    loading: false
+                }));
+            }).catch((error) => {
+                error = errorMessage(error, "addProject");
+                set({ error: error, loading: false });
+            })
     }
 });
 
