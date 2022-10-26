@@ -47,6 +47,21 @@ const projectsStore = (set) => ({
                 set({ error: error, loading: false });
             })
     },
+
+    updateProject: (project) => {
+        set({ error: null, loading: true });
+        axios.put(`http://localhost:8000/api/projects/${project.id}`, project)
+            .then((response) => {
+                set((state) => ({
+                    project: [response.data],
+                    loading: false
+                }));
+            }).catch((error) => {
+                error = errorMessage(error, "updateProject");
+                set({ error: error, loading: false });
+            })
+    },
+
     deleteProject: (projectId) => {
         set({ error: null })
         axios.delete(`http://localhost:8000/api/projects/${projectId}`)

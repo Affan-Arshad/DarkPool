@@ -4,14 +4,14 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectCostsTable extends Migration {
+class CreateCostsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
     public function up() {
-        Schema::create('project_costs', function (Blueprint $table) {
+        Schema::create('costs', function (Blueprint $table) {
             $table->id();
             $table->float('amount', 20);
             $table->string('description');
@@ -29,6 +29,6 @@ class CreateProjectCostsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('project_costs');
+        Schema::dropIfExists('costs');
     }
 }

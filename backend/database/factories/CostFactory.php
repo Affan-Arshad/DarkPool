@@ -7,7 +7,7 @@ use App\Models\Project;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use PoolHelper;
 
-class ProjectCostFactory extends Factory {
+class CostFactory extends Factory {
     /**
      * Define the model's default state.
      *

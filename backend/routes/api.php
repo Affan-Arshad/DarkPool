@@ -3,7 +3,7 @@
 use App\Http\Controllers\API\InvestmentController;
 use App\Http\Controllers\API\InvestorController;
 use App\Http\Controllers\API\ProjectController;
-use App\Http\Controllers\API\ProjectCostController;
+use App\Http\Controllers\API\CostController;
 use App\Models\Investor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,11 +45,11 @@ Route::put("/projects/{project}", [ProjectController::class, "update"]);
 Route::delete("/projects/{project}", [ProjectController::class, "destroy"]);
 
 // ProjectCost
-Route::get("/projects/{project}/costs", [ProjectCostController::class, "index"]);
-Route::get("/projects/{project}/costs/{cost}", [ProjectCostController::class, "show"]);
-Route::post("/projects/{project}/costs", [ProjectCostController::class, "store"]);
-Route::put("/projects/{project}/costs/{cost}", [ProjectCostController::class, "update"]);
-Route::delete("/projects/{project}/costs/{cost}", [ProjectCostController::class, "destroy"]);
+Route::get("/projects/{project}/costs", [CostController::class, "index"]);
+Route::get("/projects/{project}/costs/{cost}", [CostController::class, "show"]);
+Route::post("/projects/{project}/costs", [CostController::class, "store"]);
+Route::put("/projects/{project}/costs/{cost}", [CostController::class, "update"]);
+Route::delete("/projects/{project}/costs/{cost}", [CostController::class, "destroy"]);
 
 // dev
 Route::get("/balances", function () {

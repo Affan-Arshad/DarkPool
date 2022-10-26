@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use PoolHelper;
 
 class Project extends Model {
     use HasFactory;
 
     protected $guarded = ['profit_loss', 'company_profit_loss', 'shareable'];
 
-    public function costs() {
-        return $this->hasMany(ProjectCost::class);
+    public function costs(): HasMany {
+        return $this->hasMany(Cost::class);
     }
 
     protected static function boot() {

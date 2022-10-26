@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
-use App\Models\ProjectCost;
+use App\Models\Cost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use PoolHelper;
 
-class ProjectCostController extends Controller {
+class CostController extends Controller {
 
     public function index(Project $project) {
         return $project->costs;
@@ -34,17 +34,17 @@ class ProjectCostController extends Controller {
 
             $investorsRatio = PoolHelper::investorsRatio();
 
-            $projectCost = ProjectCost::create(array_merge($request->all(), ['project_id' => $project->id, 'investors_ratio' => $investorsRatio]));
+            $cost = Cost::create(array_merge($request->all(), ['project_id' => $project->id, 'investors_ratio' => $investorsRatio]));
 
-            return $projectCost;
+            return $cost;
         });
     }
 
     public function update(Project $project, Request $request, $id) {
-        return ProjectCost::find($id)->update($request->all());
+        return Cost::find($id)->update($request->all());
     }
 
-    public function destroy(Project $project, ProjectCost $cost) {
+    public function destroy(Project $project, Cost $cost) {
         return $cost->delete();
     }
 }

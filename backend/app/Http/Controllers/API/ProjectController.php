@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProjectController extends Controller {
 
     public function index() {
-        return Project::get();
+        return Project::withSum('costs', 'amount')->get();
     }
 
     public function show(Project $project) {

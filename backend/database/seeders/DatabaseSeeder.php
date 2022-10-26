@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Investment;
 use App\Models\Investor;
 use App\Models\Project;
-use App\Models\ProjectCost;
+use App\Models\Cost;
 use Faker\Factory;
 use Illuminate\Database\Seeder;
 
@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder {
         Project::factory(5)->create()
             ->each(function ($project) {
                 for ($i = 0; $i < rand(1, 2); $i++) {
-                    ProjectCost::factory(1)->create([
+                    Cost::factory(1)->create([
                         'project_id' => $project->id
                     ]);
                 }

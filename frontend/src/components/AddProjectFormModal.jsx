@@ -12,12 +12,12 @@ const AddProjectFormModal = (props) => {
 
     // status options
     const STATUSES = {
-        'WIP': 'Ongoing',
+        'Ongoing': 'Ongoing',
         'Completed': 'Completed'
     };
 
     // default form
-    const DEFAULT_FORM_DATA = { status: STATUSES['WIP'] };
+    const DEFAULT_FORM_DATA = { status: STATUSES['Ongoing'] };
 
     // state variables
     const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
@@ -39,6 +39,7 @@ const AddProjectFormModal = (props) => {
             formData.completed_date = null;
             formData.realized_amount = null;
         }
+
         // add the project
         addProject(formData);
 
@@ -160,8 +161,8 @@ const AddProjectFormModal = (props) => {
                         className="border p-2 w-full mb-2"
                     >
                         {
-                            Object.keys(STATUSES).map((v, i) => (
-                                <option key={i} value={v}>{STATUSES[v]}</option>
+                            Object.keys(STATUSES).map((v) => (
+                                <option key={v} value={v}>{STATUSES[v]}</option>
                             ))
                         }
                     </select>
