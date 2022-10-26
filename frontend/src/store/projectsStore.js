@@ -11,6 +11,7 @@ const projectsStore = (set) => ({
     balances: [],
     loading: false,
     error: null,
+
     fetchProjects: () => {
         set({ error: null, loading: true });
         axios.get("http://localhost:8000/api/projects")
@@ -48,9 +49,9 @@ const projectsStore = (set) => ({
             })
     },
 
-    updateProject: (project) => {
+    updateProject: async (project) => {
         set({ error: null, loading: true });
-        axios.put(`http://localhost:8000/api/projects/${project.id}`, project)
+        return axios.put(`http://localhost:8000/api/projects/${project.id}`, project)
             .then((response) => {
                 set((state) => ({
                     project: [response.data],
@@ -74,14 +75,15 @@ const projectsStore = (set) => ({
                 set({ error: error })
             });
     },
+
     setStatus: (projectId, status) => {
         set((state) => ({
             projects: state.projects.map((p) =>
                 p.id === projectId ? { ...p, status: status } : p
             )
         }));
-    }
-    ,
+    },
+
     fetchBalances: () => {
         set({ error: null, loading: true });
         axios.get(`http://localhost:8000/api/balances`)

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 
 const ProjectRowItem = (props) => {
-    const { project } = props;
+    const { project, handleSetEditProject } = props;
     const deleteProject = useProjectStore((state) => state.deleteProject);
 
     const handleDelete = () => {
@@ -20,8 +20,8 @@ const ProjectRowItem = (props) => {
                     <Link to={`/Projects/${project.id}`}>
                         <FaEye className="inline mr-2 text-blue-500" />
                     </Link>
-                    <FaEdit className="inline mr-2 text-yellow-500" />
-                    <FaTrash className="inline mr-2 last:mr-0 text-red-500" />
+                    <FaEdit onClick={() => handleSetEditProject(project)} className="inline mr-2 cursor-pointer text-yellow-500" />
+                    <FaTrash className="cursor-not-allowed inline mr-2 last:mr-0 text-red-500" />
                 </td>
             </tr>
             {/* <div className="flex justify-between border-b items-center">
