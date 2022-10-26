@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
-import useProjectsStore from "../store/projectsStore";
-import Modal from "../components/Modal";
+import useProjectsStore from "../../store/projectsStore";
+import Modal from "../Modal";
 
 const AddProjectFormModal = (props) => {
     const { handleHideAddProjectForm } = props;

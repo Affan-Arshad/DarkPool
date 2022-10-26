@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import useProjectsStore from "../store/projectsStore";
-import ProjectListItem from "../components/ProjectListItem";
-import AddProjectFormModal from "../components/AddProjectFormModal";
+import ProjectListItem from "../components/projects/ProjectListItem";
+import AddProjectFormModal from "../components/projects/AddProjectFormModal";
 import { FaPlusSquare } from 'react-icons/fa';
-import ProjectRowItem from "../components/ProjectRowItem";
+import ProjectRowItem from "../components/projects/ProjectRowItem";
 
 const ProjectsIndexPage = () => {
     // access store

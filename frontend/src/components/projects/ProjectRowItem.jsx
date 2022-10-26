@@ -1,4 +1,4 @@
-import useProjectStore from "../store/projectsStore";
+import useProjectStore from "../../store/projectsStore";
 import { Link } from "react-router-dom";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 

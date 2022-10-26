@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import useProjectsStore from "../store/projectsStore";
-import ProjectListItem from "../components/ProjectListItem";
-import AddProjectFormModal from "../components/AddProjectFormModal";
+import ProjectListItem from "../components/projects/ProjectListItem";
+import AddProjectFormModal from "../components/projects/AddProjectFormModal";
 
 const DashboardPage = () => {
     // access store
