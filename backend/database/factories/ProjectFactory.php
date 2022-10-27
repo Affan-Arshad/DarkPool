@@ -13,7 +13,7 @@ class ProjectFactory extends Factory {
     public function definition() {
         $cost = ceil($this->faker->numberBetween(20000, 200000) / 1000) * 1000;
         $proposedPrice = $cost * rand(15, 30) / 10;
-        $status = $this->faker->randomElement(['WIP']); //, 'completed']);
+        $status = $this->faker->randomElement(['Ongoing']); //, 'completed']);
         // $pl = ($status == "completed" ? $proposedPrice - $cost : 0);
         return [
             'name' => $this->faker->name(),

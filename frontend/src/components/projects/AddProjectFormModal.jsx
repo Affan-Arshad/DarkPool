@@ -1,8 +1,8 @@
 import ProjectFormModal from "./ProjectFormModal";
 
 const AddProjectFormModal = (props) => {
-    const { handleHideProjectForm, defaultFormData, addProject } = props;
-
+    const { handleHideProjectForm, addProject } = props;
+    const defaultFormData = { status: "Ongoing" };
     return (
         <ProjectFormModal
             modalTitle="Add Project"

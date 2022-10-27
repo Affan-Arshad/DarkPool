@@ -2,7 +2,6 @@ import create from "zustand";
 
 import { devtools, persist } from "zustand/middleware";
 import { v4 } from "uuid";
-import useInvestorsStore from "./investorsStore";
 
 const investmentsStore = (set) => ({
     investments: [

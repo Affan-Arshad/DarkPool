@@ -12,7 +12,7 @@ const InvestorsIndexPage = () => {
     // fetch investors from api on first render
     useEffect(() => {
         investorsStore.fetchInvestors()
-    }, []);
+    });
 
     // state variables
     const [showAddForm, setShowAddForm] = useState(false);

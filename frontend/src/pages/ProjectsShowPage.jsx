@@ -7,7 +7,6 @@ const ProjectsShowPage = () => {
     const projectsStore = useProjectsStore();
     const project = projectsStore.project;
     const loading = projectsStore.loading;
-    const error = projectsStore.error;
 
     useEffect(() => {
         projectsStore.fetchProject(id);
@@ -15,7 +14,7 @@ const ProjectsShowPage = () => {
         return () => {
             // cancel
         }
-    }, [])
+    })
 
 
     return (

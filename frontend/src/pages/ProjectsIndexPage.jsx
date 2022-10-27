@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import useProjectsStore from "../store/projectsStore";
-import ProjectListItem from "../components/projects/ProjectListItem";
 import AddProjectFormModal from "../components/projects/AddProjectFormModal";
 import { FaPlusSquare } from 'react-icons/fa';
 import ProjectRowItem from "../components/projects/ProjectRowItem";
@@ -21,7 +20,7 @@ const ProjectsIndexPage = () => {
     // fetch projects from api on first render
     useEffect(() => {
         projectsStore.fetchProjects()
-    }, []);
+    });
 
     // get all projects after updating a project
     const handleUpdateProject = async (project) => {
@@ -89,7 +88,6 @@ const ProjectsIndexPage = () => {
                     {showAddForm && (
                         <AddProjectFormModal
                             handleHideProjectForm={handleHideAddProjectForm}
-                            defaultFormData={{ status: "Ongoing" }}
                             addProject={addProject}
                         />
                     )}

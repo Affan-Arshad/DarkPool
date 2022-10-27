@@ -1,6 +1,6 @@
 import useInvestorsStore from "../store/investorsStore";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const InvestorsShowPage = () => {
     const { id } = useParams();
@@ -14,7 +14,7 @@ const InvestorsShowPage = () => {
         return () => {
             // cancel
         }
-    }, [])
+    })
 
     return (
         <>

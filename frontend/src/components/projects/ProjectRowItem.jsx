@@ -6,7 +6,7 @@ const ProjectRowItem = (props) => {
     const { project, handleSetEditProject } = props;
     const deleteProject = useProjectStore((state) => state.deleteProject);
 
-    const handleDelete = () => {
+    const handleDelete = (project) => {
         deleteProject(project.id);
     };
     return (
@@ -21,7 +21,7 @@ const ProjectRowItem = (props) => {
                         <FaEye className="inline mr-2 text-blue-500" />
                     </Link>
                     <FaEdit onClick={() => handleSetEditProject(project)} className="inline mr-2 cursor-pointer text-yellow-500" />
-                    <FaTrash className="cursor-not-allowed inline mr-2 last:mr-0 text-red-500" />
+                    <FaTrash onClick={() => handleDelete(project)} className="cursor-pointer inline mr-2 last:mr-0 text-red-500" />
                 </td>
             </tr>
             {/* <div className="flex justify-between border-b items-center">

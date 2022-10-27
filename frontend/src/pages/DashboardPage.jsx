@@ -1,7 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import useProjectsStore from "../store/projectsStore";
-import ProjectListItem from "../components/projects/ProjectListItem";
-import AddProjectFormModal from "../components/projects/AddProjectFormModal";
 
 const DashboardPage = () => {
     // access store
@@ -12,19 +10,7 @@ const DashboardPage = () => {
     // fetch projects from api on first render
     useEffect(() => {
         projectsStore.fetchBalances()
-    }, []);
-
-    // state variables
-    const [showAddForm, setShowAddForm] = useState(false);
-
-    // show and hide add project form
-    const handleShowAddProjectForm = () => {
-        setShowAddForm(true);
-    };
-
-    const handleHideAddProjectForm = () => {
-        setShowAddForm(false);
-    };
+    });
 
     return (
         <>

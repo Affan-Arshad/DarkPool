@@ -1,8 +1,6 @@
 import create from "zustand";
 import axios from "axios";
 
-import { devtools, persist } from "zustand/middleware";
-import { v4 } from "uuid";
 import errorMessage from "../helpers/errorMessage";
 
 const projectsStore = (set) => ({
@@ -11,10 +9,11 @@ const projectsStore = (set) => ({
     balances: [],
     loading: false,
     error: null,
+    apiUrl: "http://192.168.18.3:8000",
 
     fetchProjects: () => {
         set({ error: null, loading: true });
-        axios.get("http://localhost:8000/api/projects")
+        axios.get(`${this.apiUrl}/api/projects`)
             .then((response) => {
                 const projects = response.data;
                 set({ projects, loading: false });
@@ -26,7 +25,7 @@ const projectsStore = (set) => ({
 
     fetchProject: (projectId) => {
         set({ error: null, loading: true });
-        axios.get(`http://localhost:8000/api/projects/${projectId}`)
+        axios.get(`${this.apiUrl}/api/projects/${projectId}`)
             .then((response) => {
                 set({ project: response.data, loading: false });
             }).catch((error) => {
@@ -37,7 +36,7 @@ const projectsStore = (set) => ({
 
     addProject: (project) => {
         set({ error: null, loading: true });
-        axios.post("http://localhost:8000/api/projects", project)
+        axios.post(`${this.apiUrl}/api/projects`, project)
             .then((response) => {
                 set((state) => ({
                     projects: [...state.projects, response.data],
@@ -51,7 +50,7 @@ const projectsStore = (set) => ({
 
     updateProject: async (project) => {
         set({ error: null, loading: true });
-        return axios.put(`http://localhost:8000/api/projects/${project.id}`, project)
+        return axios.put(`${this.apiUrl}/api/projects/${project.id}`, project)
             .then((response) => {
                 set((state) => ({
                     project: [response.data],
@@ -65,7 +64,7 @@ const projectsStore = (set) => ({
 
     deleteProject: (projectId) => {
         set({ error: null })
-        axios.delete(`http://localhost:8000/api/projects/${projectId}`)
+        axios.delete(`${this.apiUrl}/api/projects/${projectId}`)
             .then((response) => {
                 set((state) => ({
                     projects: state.projects.filter((p) => p.id !== projectId)
@@ -86,14 +85,14 @@ const projectsStore = (set) => ({
 
     fetchBalances: () => {
         set({ error: null, loading: true });
-        axios.get(`http://localhost:8000/api/balances`)
+        axios.get(`${this.apiUrl}/api/balances`)
             .then((response) => {
                 set((state) => ({
                     balances: response.data,
                     loading: false
                 }));
             }).catch((error) => {
-                error = errorMessage(error, "addProject");
+                error = errorMessage(error, "fetchBalances");
                 set({ error: error, loading: false });
             })
     }

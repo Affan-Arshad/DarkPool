@@ -1,8 +1,6 @@
 import create from "zustand";
 import axios from "axios";
 
-import { devtools, persist } from "zustand/middleware";
-import { v4 } from "uuid";
 import errorMessage from "../helpers/errorMessage";
 
 const investorsStore = (set) => ({
@@ -10,10 +8,11 @@ const investorsStore = (set) => ({
     investor: {},
     loading: false,
     error: null,
+    apiUrl: "http://192.168.18.3:8000",
 
     fetchInvestors: () => {
         set({ error: null, loading: true });
-        axios.get("http://localhost:8000/api/investors")
+        axios.get(`${this.apiUrl}/api/investors`)
             .then((response) => {
                 const investors = response.data;
                 set({ investors, loading: false });
@@ -25,7 +24,7 @@ const investorsStore = (set) => ({
 
     fetchInvestor: (investorId) => {
         set({ error: null, loading: true });
-        axios.get(`http://localhost:8000/api/investors/${investorId}`)
+        axios.get(`${this.apiUrl}/api/investors/${investorId}`)
             .then((response) => {
                 set({ investor: response.data, loading: false });
             }).catch((error) => {
@@ -36,7 +35,7 @@ const investorsStore = (set) => ({
 
     addInvestor: (investor) => {
         set({ error: null, loading: true });
-        axios.post("http://localhost:8000/api/investors", investor)
+        axios.post(`${this.apiUrl}/api/investors`, investor)
             .then((response) => {
                 set((state) => ({
                     investors: [...state.investors, response.data],
@@ -50,8 +49,7 @@ const investorsStore = (set) => ({
 
     deleteInvestor: (investorId) => {
         set({ error: null })
-        const fn = this;
-        axios.delete(`http://localhost:8000/api/investors/${investorId}`)
+        axios.delete(`${this.apiUrl}/api/investors/${investorId}`)
             .then((response) => {
                 set((state) => ({
                     investors: state.investors.filter((p) => p.id !== investorId)

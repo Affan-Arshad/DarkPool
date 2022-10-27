@@ -11,7 +11,7 @@ class PoolHelper {
     }
 
     public static function activeProjectCosts() {
-        return Project::where('status', 'WIP')->withSum('costs', 'amount')->get()->sum('costs_sum_amount');
+        return Project::where('status', 'Ongoing')->withSum('costs', 'amount')->get()->sum('costs_sum_amount');
     }
 
     public static function availableBalance() {
@@ -54,7 +54,7 @@ class PoolHelper {
 
     public static function runningCostsByInvestor() {
         $investorRunningCosts = [];
-        $wipProjects = Project::where('status', 'WIP')->with('costs')->get();
+        $wipProjects = Project::where('status', 'Ongoing')->with('costs')->get();
         // for each cost of each project: 
         foreach ($wipProjects as $project) {
             foreach ($project->costs as $runningCost) {

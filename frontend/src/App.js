@@ -1,11 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 import InvestorsIndexPage from "./pages/InvestorsIndexPage";
 import InvestorsShowPage from "./pages/InvestorsShowPage";
-import PoolDetailsPage from "./pages/PoolDetailsPage";
 import ProjectsShowPage from "./pages/ProjectsShowPage";
 import ProjectsIndexPage from "./pages/ProjectsIndexPage";
 import Error from './components/Error';

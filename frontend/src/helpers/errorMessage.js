@@ -1,6 +1,6 @@
 const errorMessage = (e, from = "") => {
     let error = e.response ? e.response.data.message : e.message;
-    from ? error = from + ": " + error : error = error;
+    if (from) error = from + ": " + error;
     return error;
 }
 
