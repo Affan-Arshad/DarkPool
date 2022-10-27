@@ -23,17 +23,20 @@ class Project extends Model {
 
         static::saving(function ($project) {
             DB::beginTransaction();
-            // if status is anything but completed ignore and let it save
-            if ($project->status != 'completed') return DB::commit();
 
-            // if it is completed and 
             // profit_loss, company_profit_loss or shareable is already set
             // deny saving
             if (
                 $project->profit_loss !== null ||
                 $project->company_profit_loss !== null ||
                 $project->shareable !== null
-            ) return false; // maybe set a message for the user
+            ) {
+
+                return false;
+            } // maybe set a message for the user
+
+            // if status is anything but completed ignore and let it save
+            if ($project->status != 'Completed') return DB::commit();
 
             // if completed and fields not yet set, set fields
             Validator::make(request()->all(), [
@@ -41,12 +44,12 @@ class Project extends Model {
                 'completed_date' => 'required'
             ]);
 
-            $projectAllCosts = $project->withSum('costs', 'amount')->get()->sum('costs_sum_amount');
+            $projectAllCosts = $project->costs->sum('amount');
             $project->profit_loss = $project->realized_amount - $projectAllCosts;
-            $project->company_profit_loss = $project->profit_loss * $project->company_profit_percent;
+            $project->company_profit_loss = $project->profit_loss * $project->company_profit_percent / 100;
 
             // prevent investors from sharing loss -> company takes all loss
-            $project->company_profit_loss = ($project->company_profit_loss < 0) ? 0 : $project->company_profit_loss;
+            $project->company_profit_loss = ($project->profit_loss < 0) ? $project->profit_loss : $project->company_profit_loss;
 
             $project->shareable = $project->profit_loss - $project->company_profit_loss;
 
