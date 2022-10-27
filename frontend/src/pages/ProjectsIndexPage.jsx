@@ -20,7 +20,9 @@ const ProjectsIndexPage = () => {
     // fetch projects from api on first render
     useEffect(() => {
         projectsStore.fetchProjects()
-    });
+
+        // eslint-disable-next-line 
+    }, []);
 
     // get all projects after updating a project
     const handleUpdateProject = async (project) => {

@@ -14,7 +14,9 @@ const InvestorsShowPage = () => {
         return () => {
             // cancel
         }
-    })
+
+        // eslint-disable-next-line
+    }, [])
 
     return (
         <>

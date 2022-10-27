@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use Exception;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller {
@@ -12,8 +13,8 @@ class ProjectController extends Controller {
         return Project::withSum('costs', 'amount')->get();
     }
 
-    public function show(Project $project) {
-        return $project;
+    public function show($id) {
+        return Project::withSum('costs', 'amount')->find($id);
     }
 
     public function store(Request $request) {
@@ -22,6 +23,8 @@ class ProjectController extends Controller {
     }
 
     public function update(Request $request, $id) {
+        // Observe Model Saving and Handle Related Calculations on Model
+        // trying to catch any errors on the Model saving method ...failed
         return Project::find($id)->update($request->all());
     }
 

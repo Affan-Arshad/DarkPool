@@ -10,7 +10,9 @@ const DashboardPage = () => {
     // fetch projects from api on first render
     useEffect(() => {
         projectsStore.fetchBalances()
-    });
+
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <>

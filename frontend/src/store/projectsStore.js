@@ -3,17 +3,18 @@ import axios from "axios";
 
 import errorMessage from "../helpers/errorMessage";
 
+const apiUrl = "http://localhost:8000";
+
 const projectsStore = (set) => ({
     projects: [],
     project: {},
     balances: [],
     loading: false,
     error: null,
-    apiUrl: "http://192.168.18.3:8000",
 
     fetchProjects: () => {
         set({ error: null, loading: true });
-        axios.get(`${this.apiUrl}/api/projects`)
+        axios.get(`${apiUrl}/api/projects`)
             .then((response) => {
                 const projects = response.data;
                 set({ projects, loading: false });
@@ -25,7 +26,7 @@ const projectsStore = (set) => ({
 
     fetchProject: (projectId) => {
         set({ error: null, loading: true });
-        axios.get(`${this.apiUrl}/api/projects/${projectId}`)
+        axios.get(`${apiUrl}/api/projects/${projectId}`)
             .then((response) => {
                 set({ project: response.data, loading: false });
             }).catch((error) => {
@@ -36,7 +37,7 @@ const projectsStore = (set) => ({
 
     addProject: (project) => {
         set({ error: null, loading: true });
-        axios.post(`${this.apiUrl}/api/projects`, project)
+        axios.post(`${apiUrl}/api/projects`, project)
             .then((response) => {
                 set((state) => ({
                     projects: [...state.projects, response.data],
@@ -50,7 +51,7 @@ const projectsStore = (set) => ({
 
     updateProject: async (project) => {
         set({ error: null, loading: true });
-        return axios.put(`${this.apiUrl}/api/projects/${project.id}`, project)
+        return axios.put(`${apiUrl}/api/projects/${project.id}`, project)
             .then((response) => {
                 set((state) => ({
                     project: [response.data],
@@ -64,7 +65,7 @@ const projectsStore = (set) => ({
 
     deleteProject: (projectId) => {
         set({ error: null })
-        axios.delete(`${this.apiUrl}/api/projects/${projectId}`)
+        axios.delete(`${apiUrl}/api/projects/${projectId}`)
             .then((response) => {
                 set((state) => ({
                     projects: state.projects.filter((p) => p.id !== projectId)
@@ -85,7 +86,7 @@ const projectsStore = (set) => ({
 
     fetchBalances: () => {
         set({ error: null, loading: true });
-        axios.get(`${this.apiUrl}/api/balances`)
+        axios.get(`${apiUrl}/api/balances`)
             .then((response) => {
                 set((state) => ({
                     balances: response.data,

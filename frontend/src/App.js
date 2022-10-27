@@ -21,7 +21,7 @@ export default function App() {
       <div className="container mx-auto">
 
         {/* Navigation */}
-        <header className="flex justify-center border-b">
+        <header className="p-6 flex justify-center border-b">
           <Link className="px-3 py-1 block border" to="/">
             Dashboard
           </Link>

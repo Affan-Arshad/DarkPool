@@ -23,7 +23,7 @@ class ProjectFactory extends Factory {
             'status' => $status,
             'estimated_cost' => $cost,
             'proposed_price' => $proposedPrice,
-            'company_profit_percent' => 0.7,
+            'company_profit_percent' => 70,
             // 'realized_amount' => ($status == "completed" ? $proposedPrice : 0),
             // 'profit_loss' => $pl,
             // 'company_profit_loss' => $pl * 0.7,
