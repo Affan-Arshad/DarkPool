@@ -1,17 +1,11 @@
 import { useRef, useState } from "react";
-import useInvestorsStore from "../store/investorsStore";
-import Modal from "../components/Modal";
+import Modal from "../Modal";
 
-const AddInvestorFormModal = (props) => {
-    const { handleHideAddInvestorForm } = props;
-
-    // access store
-    const { addInvestor } = useInvestorsStore((state) => ({
-        addInvestor: state.addInvestor
-    }));
+const InvestorFormModal = (props) => {
+    const { modalTitle, handleHideInvestorForm, submitFormData, defaultFormData } = props;
 
     // state variables
-    const [formData, setFormData] = useState({});
+    const [formData, setFormData] = useState(defaultFormData);
 
     // handle form data change
     const handleFormDataChange = (event) => {
@@ -21,16 +15,16 @@ const AddInvestorFormModal = (props) => {
         }));
     };
 
-    // handle add investor form submission
+    // handle add project form submission
     const handleFormSubmit = (event) => {
         event.preventDefault();
 
-        // add the investor
-        addInvestor(formData);
+        // add the project
+        submitFormData(formData);
 
         // reset form
-        setFormData({});
-        handleHideAddInvestorForm();
+        setFormData(defaultFormData);
+        handleHideInvestorForm();
     };
 
     // ref to form submit button element
@@ -45,7 +39,7 @@ const AddInvestorFormModal = (props) => {
         <>
             <form onSubmit={handleFormSubmit}>
                 <div className="mt-2">
-                    <label>Investor Name</label>
+                    <label>Name</label>
                     <input
                         autoFocus
                         required
@@ -58,28 +52,31 @@ const AddInvestorFormModal = (props) => {
                 </div>
 
                 <div className="mt-2">
-                    <label>Account Number</label>
-                    <input
-                        required
-                        name="account_no"
-                        value={formData.account_no}
-                        onChange={handleFormDataChange}
-                        placeholder="account_no"
-                        className="border p-2 w-full mb-2"
-                    />
-                </div>
-
-                <div className="mt-2">
-                    <label>account_name</label>
+                    <label>Account name</label>
                     <input
                         required
                         name="account_name"
                         value={formData.account_name}
                         onChange={handleFormDataChange}
-                        placeholder="account_name"
+                        placeholder="Account Name"
                         className="border p-2 w-full mb-2"
                     />
                 </div>
+
+                <div className="mt-2">
+                    <label>Account No</label>
+                    <input
+                        type="number"
+                        required
+                        name="account_no"
+                        value={formData.account_no}
+                        onChange={handleFormDataChange}
+                        placeholder="Account Number"
+                        className="border p-2 w-full mb-2"
+                    />
+                </div>
+
+
                 <button type="submit" hidden ref={formSubmitButton}></button>
             </form>
         </>
@@ -87,13 +84,13 @@ const AddInvestorFormModal = (props) => {
 
     return (
         <Modal
-            modalTitle="Create Investor"
+            modalTitle={modalTitle}
             modalBody={form}
-            handleModalHide={handleHideAddInvestorForm}
+            handleModalHide={handleHideInvestorForm}
             handleModalSubmit={handleModalSubmit}
             submitText="Submit"
         />
     );
 };
 
-export default AddInvestorFormModal;
+export default InvestorFormModal;

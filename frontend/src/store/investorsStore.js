@@ -48,6 +48,20 @@ const investorsStore = (set) => ({
             })
     },
 
+    updateInvestor: async (investor) => {
+        set({ error: null, loading: true });
+        return axios.put(`${apiUrl}/api/investors/${investor.id}`, investor)
+            .then((response) => {
+                set((state) => ({
+                    investor: [response.data],
+                    loading: false
+                }));
+            }).catch((error) => {
+                error = errorMessage(error, "updateInvestor");
+                set({ error: error, loading: false });
+            })
+    },
+
     deleteInvestor: (investorId) => {
         set({ error: null })
         axios.delete(`${apiUrl}/api/investors/${investorId}`)
