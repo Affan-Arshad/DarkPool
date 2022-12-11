@@ -1,4 +1,5 @@
 import useInvestorsStore from "../store/investorsStore";
+import InvestmentsIndexPage from "./InvestmentsIndexPage";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -25,7 +26,7 @@ const InvestorsShowPage = () => {
             {loading ? (<h1>Loading...</h1>) :
                 <div>
 
-                    <table className="w-full border-collapse text-sm">
+                    <table className="mb-10 w-full border-collapse text-sm">
                         <tbody>
                             <tr className="border-b">
                                 <th className="w-[1px] whitespace-nowrap font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Investor Name</th>
@@ -49,6 +50,9 @@ const InvestorsShowPage = () => {
                             </tr>
                         </tbody>
                     </table>
+
+                    {/* Show Investments for this Investor */}
+                    <InvestmentsIndexPage investorId={investor.id} />
 
                 </div>
             }

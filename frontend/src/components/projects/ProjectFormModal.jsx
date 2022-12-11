@@ -152,8 +152,8 @@ const ProjectFormModal = (props) => {
                         className="border p-2 w-full mb-2"
                     >
                         {
-                            Object.keys(STATUSES).map((v) => (
-                                <option key={v} value={v}>{STATUSES[v]}</option>
+                            Object.keys(STATUSES).map((key) => (
+                                <option key={key} value={key}>{STATUSES[key]}</option>
                             ))
                         }
                     </select>

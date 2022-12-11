@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import useInvestmentsStore from "../store/investmentsStore";
-import Modal from "../components/Modal";
+import Modal from "./Modal";
 import { useParams } from "react-router-dom";
 
 const AddInvestmentFormModal = (props) => {

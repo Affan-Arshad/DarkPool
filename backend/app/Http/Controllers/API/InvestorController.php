@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Investment;
 use App\Models\Investor;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,15 @@ class InvestorController extends Controller {
         // return Investor::with('investments')->withSum('investments', 'amount')->get();
     }
 
-    public function show(Investor $investor) {
-        return $investor;
+    public function show($id) {
+        return Investor
+            ::withSum(['investments as deposits' => function ($query) {
+                $query->where('type', 'investment');
+            }], 'amount')
+            ->withSum(['investments as returns' => function ($query) {
+                $query->where('type', 'return');
+            }], 'amount')
+            ->with('investments')->find($id);
     }
 
     public function store(Request $request) {
@@ -39,5 +47,11 @@ class InvestorController extends Controller {
 
     public function destroy(Investor $investor) {
         return $investor->delete();
+    }
+
+    public function investments($id) {
+        return Investment
+            ::where('investor_id', '=', $id)
+            ->with('project')->get();
     }
 }

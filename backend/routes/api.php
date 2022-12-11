@@ -29,6 +29,7 @@ Route::get("/investors/{investor}", [InvestorController::class, "show"]);
 Route::post("/investors", [InvestorController::class, "store"]);
 Route::put("/investors/{investor}", [InvestorController::class, "update"]);
 Route::delete("/investors/{investor}", [InvestorController::class, "destroy"]);
+Route::get("/investors/{investor}/investments", [InvestorController::class, "investments"]);
 
 // Investments
 Route::get("/investments", [InvestmentController::class, "index"]);

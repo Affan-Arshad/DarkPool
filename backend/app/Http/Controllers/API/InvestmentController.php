@@ -21,7 +21,7 @@ class InvestmentController extends Controller {
     }
 
     public function update(Request $request, $id) {
-        return Investment::find($id)->update($request->all());
+        return Investment::find($id)->update($request->only(["amount", "date"]));
     }
 
     public function destroy(Investment $investment) {
