@@ -33,6 +33,9 @@ class ProjectController extends Controller {
     }
 
     public function destroy(Project $project) {
+        if ($project->status == "Completed") {
+            return response()->json(['message' => 'Cannot modify completed project'], 500);
+        }
         return $project->delete();
     }
 }

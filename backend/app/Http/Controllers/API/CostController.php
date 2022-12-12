@@ -50,6 +50,9 @@ class CostController extends Controller {
     }
 
     public function destroy(Project $project, Cost $cost) {
+        if ($project->status == "Completed") {
+            return response()->json(['message' => 'Cannot modify completed project'], 500);
+        }
         return $cost->delete();
     }
 }

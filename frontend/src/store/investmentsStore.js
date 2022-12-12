@@ -12,7 +12,7 @@ const investmentsStore = (set) => ({
     error: null,
 
     fetchInvestments: (investor_id) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         if (investor_id)
             axios.get(`${apiUrl}/api/investors/${investor_id}/investments`)
                 .then((response) => {
@@ -21,6 +21,7 @@ const investmentsStore = (set) => ({
                 }).catch((error) => {
                     error = errorMessage(error, "fetchInvestments");
                     set({ error: error, loading: false });
+                    throw Error("Something went wrong");
                 })
         else
             axios.get(`${apiUrl}/api/investments`)
@@ -30,22 +31,24 @@ const investmentsStore = (set) => ({
                 }).catch((error) => {
                     error = errorMessage(error, "fetchInvestments");
                     set({ error: error, loading: false });
+                    throw Error("Something went wrong");
                 })
     },
 
     fetchInvestment: (investmentId) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         axios.get(`${apiUrl}/api/investments/${investmentId}`)
             .then((response) => {
                 set({ investment: response.data, loading: false });
             }).catch((error) => {
                 error = errorMessage(error, "fetchInvestment");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     addInvestment: async (investment) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         return axios.post(`${apiUrl}/api/investments`, investment)
             .then((response) => {
                 set((state) => ({
@@ -55,11 +58,12 @@ const investmentsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "addInvestment");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     updateInvestment: async (investment) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         return axios.put(`${apiUrl}/api/investments/${investment.id}`, investment)
             .then((response) => {
                 set((state) => ({
@@ -69,10 +73,12 @@ const investmentsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "updateInvestment");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     deleteInvestment: (investmentId) => {
+        set({ error: null });
         axios.delete(`${apiUrl}/api/investments/${investmentId}`)
             .then((response) => {
                 set((state) => ({
@@ -80,7 +86,8 @@ const investmentsStore = (set) => ({
                 }));
             }).catch((error) => {
                 error = errorMessage(error, "deleteInvestment");
-                set({ error: error })
+                set({ error: error });
+                throw Error("Something went wrong");
             });
     }
 });

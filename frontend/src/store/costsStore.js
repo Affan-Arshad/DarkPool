@@ -12,7 +12,7 @@ const costsStore = (set) => ({
     error: null,
 
     fetchCosts: (project_id) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         axios.get(`${apiUrl}/api/projects/${project_id}/costs`)
             .then((response) => {
                 const costs = response.data;
@@ -20,22 +20,24 @@ const costsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "fetchCosts");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             });
     },
 
     fetchCost: (projectId, costId) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         axios.get(`${apiUrl}/api/projects/${projectId}/costs/${costId}`)
             .then((response) => {
                 set({ cost: response.data, loading: false });
             }).catch((error) => {
                 error = errorMessage(error, "fetchCost");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     addCost: async (projectId, cost) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         return axios.post(`${apiUrl}/api/projects/${projectId}/costs`, cost)
             .then((response) => {
                 set((state) => ({
@@ -45,11 +47,12 @@ const costsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "addCost");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     updateCost: async (projectId, cost) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         return axios.put(`${apiUrl}/api/projects/${projectId}/costs/${cost.id}`, cost)
             .then((response) => {
                 set((state) => ({
@@ -59,10 +62,12 @@ const costsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "updateCost");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     deleteCost: (projectId, costId) => {
+        set({ error: null });
         axios.delete(`${apiUrl}/api/projects/${projectId}/costs/${costId}`)
             .then((response) => {
                 set((state) => ({
@@ -71,6 +76,7 @@ const costsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "deleteCost");
                 set({ error: error })
+                throw Error("Something went wrong");
             });
     }
 });

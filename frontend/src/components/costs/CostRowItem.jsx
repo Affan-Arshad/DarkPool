@@ -7,7 +7,7 @@ const CostRowItem = (props) => {
     const deleteCost = useCostStore((state) => state.deleteCost);
 
     const handleDelete = (cost) => {
-        deleteCost(cost.id);
+        deleteCost(cost.project_id, cost.id);
     };
     return (
         <>
@@ -15,7 +15,7 @@ const CostRowItem = (props) => {
                 <td className="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">{cost.date}</td>
                 <td className="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">{cost.description}</td>
                 <td className="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">{Intl.NumberFormat().format(cost.amount)}</td>
-                <td className="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">{Object.keys(cost.investors_ratio).length}</td>
+                <td className="border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">{cost.investors_ratio ? Object.keys(cost.investors_ratio).length : "refresh"}</td>
                 <td className="text-center border border-slate-300 dark:border-slate-700 p-4 text-slate-500 dark:text-slate-400">
                     {/* <Link to={`/costs/${cost.id}`}>
                         <FaEye className="inline mr-2 text-blue-500" />

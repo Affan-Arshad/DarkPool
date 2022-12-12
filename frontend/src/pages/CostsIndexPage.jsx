@@ -93,7 +93,7 @@ const CostsIndexPage = (props) => {
                         </thead>
                         <tbody>
                             {costs
-                                ? costs.map((p) => <CostRowItem handleSetEditCost={handleSetEditCost} key={p.id} cost={p} />)
+                                ? costs.map((c) => <CostRowItem handleSetEditCost={handleSetEditCost} key={c.id} cost={c} />)
                                 : <tr className="text-center"><td className="p-4" colSpan={5}>No Costs Yet</td></tr>
                             }
                         </tbody>

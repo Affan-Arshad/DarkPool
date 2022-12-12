@@ -41,7 +41,7 @@ export default function App() {
         {/* Main content area */}
         <section className="p-6">
 
-          {errors && errors.map((e, i) => e && (<Error key={Date.now() + e} error={e} />))}
+          {errors && errors.map((e, i) => e && (<Error key={e} error={e} />))}
 
           {/* Routes */}
           <Routes>

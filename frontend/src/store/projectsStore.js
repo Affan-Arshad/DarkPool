@@ -13,7 +13,7 @@ const projectsStore = (set) => ({
     error: null,
 
     fetchProjects: () => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         axios.get(`${apiUrl}/api/projects`)
             .then((response) => {
                 const projects = response.data;
@@ -21,22 +21,24 @@ const projectsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "fetchProjects");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     fetchProject: (projectId) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         axios.get(`${apiUrl}/api/projects/${projectId}`)
             .then((response) => {
                 set({ project: response.data, loading: false });
             }).catch((error) => {
                 error = errorMessage(error, "fetchProject");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     addProject: (project) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         axios.post(`${apiUrl}/api/projects`, project)
             .then((response) => {
                 set((state) => ({
@@ -46,11 +48,12 @@ const projectsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "addProject");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     updateProject: async (project) => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         return axios.put(`${apiUrl}/api/projects/${project.id}`, project)
             .then((response) => {
                 set((state) => ({
@@ -60,10 +63,12 @@ const projectsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "updateProject");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     },
 
     deleteProject: (projectId) => {
+        set({ error: null });
         axios.delete(`${apiUrl}/api/projects/${projectId}`)
             .then((response) => {
                 set((state) => ({
@@ -72,6 +77,7 @@ const projectsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "deleteProject");
                 set({ error: error })
+                throw Error("Something went wrong");
             });
     },
 
@@ -84,7 +90,7 @@ const projectsStore = (set) => ({
     },
 
     fetchBalances: () => {
-        set({ loading: true });
+        set({ error: null, loading: true });
         axios.get(`${apiUrl}/api/balances`)
             .then((response) => {
                 set((state) => ({
@@ -94,6 +100,7 @@ const projectsStore = (set) => ({
             }).catch((error) => {
                 error = errorMessage(error, "fetchBalances");
                 set({ error: error, loading: false });
+                throw Error("Something went wrong");
             })
     }
 });
