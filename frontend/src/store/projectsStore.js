@@ -13,7 +13,7 @@ const projectsStore = (set) => ({
     error: null,
 
     fetchProjects: () => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         axios.get(`${apiUrl}/api/projects`)
             .then((response) => {
                 const projects = response.data;
@@ -25,7 +25,7 @@ const projectsStore = (set) => ({
     },
 
     fetchProject: (projectId) => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         axios.get(`${apiUrl}/api/projects/${projectId}`)
             .then((response) => {
                 set({ project: response.data, loading: false });
@@ -36,7 +36,7 @@ const projectsStore = (set) => ({
     },
 
     addProject: (project) => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         axios.post(`${apiUrl}/api/projects`, project)
             .then((response) => {
                 set((state) => ({
@@ -50,7 +50,7 @@ const projectsStore = (set) => ({
     },
 
     updateProject: async (project) => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         return axios.put(`${apiUrl}/api/projects/${project.id}`, project)
             .then((response) => {
                 set((state) => ({
@@ -64,7 +64,6 @@ const projectsStore = (set) => ({
     },
 
     deleteProject: (projectId) => {
-        set({ error: null })
         axios.delete(`${apiUrl}/api/projects/${projectId}`)
             .then((response) => {
                 set((state) => ({
@@ -85,7 +84,7 @@ const projectsStore = (set) => ({
     },
 
     fetchBalances: () => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         axios.get(`${apiUrl}/api/balances`)
             .then((response) => {
                 set((state) => ({

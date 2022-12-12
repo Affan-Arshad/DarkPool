@@ -1,6 +1,7 @@
 import useProjectsStore from "../store/projectsStore";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import CostsIndexPage from "./CostsIndexPage";
 
 const ProjectsShowPage = () => {
     const { id } = useParams();
@@ -25,7 +26,7 @@ const ProjectsShowPage = () => {
             {loading ? (<h1>Loading...</h1>) :
                 <div>
 
-                    <table className="w-full border-collapse text-sm">
+                    <table className="mb-10 w-full border-collapse text-sm">
                         <tbody>
                             <tr className="border-b">
                                 <th className="w-[1px] whitespace-nowrap font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Project Name</th>
@@ -85,6 +86,8 @@ const ProjectsShowPage = () => {
                             </tr>
                         </tbody>
                     </table>
+
+                    <CostsIndexPage projectId={id} />
                 </div>
             }
         </>

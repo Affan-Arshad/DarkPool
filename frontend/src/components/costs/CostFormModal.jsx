@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 import Modal from "../Modal";
 
-const InvestmentFormModal = (props) => {
-    const { modalTitle, handleHideInvestmentForm, submitFormData, defaultFormData } = props;
+const CostFormModal = (props) => {
+    const { modalTitle, handleHideCostForm, submitFormData, defaultFormData } = props;
 
     // state variables
     const [formData, setFormData] = useState(defaultFormData);
@@ -24,7 +24,7 @@ const InvestmentFormModal = (props) => {
 
         // reset form
         setFormData(defaultFormData);
-        handleHideInvestmentForm();
+        handleHideCostForm();
     };
 
     // ref to form submit button element
@@ -39,9 +39,20 @@ const InvestmentFormModal = (props) => {
         <>
             <form onSubmit={handleFormSubmit}>
                 <div className="mt-2">
-                    <label>Amount</label>
+                    <label>Description</label>
                     <input
                         autoFocus
+                        required
+                        name="description"
+                        value={formData.description}
+                        onChange={handleFormDataChange}
+                        placeholder="Description"
+                        className="border p-2 w-full mb-2"
+                    />
+                </div>
+                <div className="mt-2">
+                    <label>Amount</label>
+                    <input
                         required
                         name="amount"
                         value={formData.amount}
@@ -72,11 +83,11 @@ const InvestmentFormModal = (props) => {
         <Modal
             modalTitle={modalTitle}
             modalBody={form}
-            handleModalHide={handleHideInvestmentForm}
+            handleModalHide={handleHideCostForm}
             handleModalSubmit={handleModalSubmit}
             submitText="Submit"
         />
     );
 };
 
-export default InvestmentFormModal;
+export default CostFormModal;

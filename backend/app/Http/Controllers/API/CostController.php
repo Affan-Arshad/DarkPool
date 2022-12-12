@@ -21,6 +21,9 @@ class CostController extends Controller {
 
     public function store(Project $project, Request $request) {
         // TODO: shouldn't accept cost for completed projects
+        if ($project->status == "Completed") {
+            return response()->json(['message' => 'Cannot modify completed project'], 403);
+        }
 
         // using a transaction to fail everything if any of the actions fail
         DB::transaction(function () use ($project, $request) {
@@ -28,19 +31,21 @@ class CostController extends Controller {
             // make investment by company account the missing amount
             $availableBalance = PoolHelper::availableBalance();
             if ($request->amount > $availableBalance) {
-                $missing_amount = $request->amount - $availableBalance;
-                InvestmentController::makeCompanyInvestment($missing_amount, $request->date);
+                $missingAmount = $request->amount - $availableBalance;
+                InvestmentController::makeCompanyInvestment($missingAmount, $request->date);
             }
 
             $investorsRatio = PoolHelper::investorsRatio();
 
-            $cost = Cost::create(array_merge($request->all(), ['project_id' => $project->id, 'investors_ratio' => $investorsRatio]));
-
-            return $cost;
+            $data = array_merge($request->all(), ['project_id' => $project->id, 'investors_ratio' => $investorsRatio]);
+            return Cost::create($data);
         });
     }
 
     public function update(Project $project, Request $request, $id) {
+        if ($project->status == "Completed") {
+            return response()->json(['message' => 'Cannot modify completed project'], 500);
+        }
         return Cost::find($id)->update($request->all());
     }
 

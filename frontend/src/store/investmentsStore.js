@@ -12,7 +12,7 @@ const investmentsStore = (set) => ({
     error: null,
 
     fetchInvestments: (investor_id) => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         if (investor_id)
             axios.get(`${apiUrl}/api/investors/${investor_id}/investments`)
                 .then((response) => {
@@ -34,7 +34,7 @@ const investmentsStore = (set) => ({
     },
 
     fetchInvestment: (investmentId) => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         axios.get(`${apiUrl}/api/investments/${investmentId}`)
             .then((response) => {
                 set({ investment: response.data, loading: false });
@@ -45,7 +45,7 @@ const investmentsStore = (set) => ({
     },
 
     addInvestment: async (investment) => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         return axios.post(`${apiUrl}/api/investments`, investment)
             .then((response) => {
                 set((state) => ({
@@ -59,7 +59,7 @@ const investmentsStore = (set) => ({
     },
 
     updateInvestment: async (investment) => {
-        set({ error: null, loading: true });
+        set({ loading: true });
         return axios.put(`${apiUrl}/api/investments/${investment.id}`, investment)
             .then((response) => {
                 set((state) => ({
@@ -73,7 +73,6 @@ const investmentsStore = (set) => ({
     },
 
     deleteInvestment: (investmentId) => {
-        set({ error: null })
         axios.delete(`${apiUrl}/api/investments/${investmentId}`)
             .then((response) => {
                 set((state) => ({

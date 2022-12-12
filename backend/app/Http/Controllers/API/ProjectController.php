@@ -25,7 +25,11 @@ class ProjectController extends Controller {
     public function update(Request $request, $id) {
         // Observe Model Saving and Handle Related Calculations on Model
         // trying to catch any errors on the Model saving method ...failed
-        return Project::find($id)->update($request->all());
+        $project =  Project::find($id);
+        if ($project->status == "Completed") {
+            return response()->json(['message' => 'Cannot modify completed project'], 500);
+        }
+        return $project->update($request->all());
     }
 
     public function destroy(Project $project) {

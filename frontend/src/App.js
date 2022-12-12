@@ -9,12 +9,14 @@ import ProjectsIndexPage from "./pages/ProjectsIndexPage";
 import Error from './components/Error';
 import useInvestorsStore from './store/investorsStore';
 import useProjectsStore from './store/projectsStore';
+import useCostsStore from './store/costsStore';
 import DashboardPage from './pages/DashboardPage';
 
 export default function App() {
   const investorsStore = useInvestorsStore();
   const projectsStore = useProjectsStore();
-  const errors = [investorsStore.error, projectsStore.error];
+  const costsStore = useCostsStore();
+  const errors = [investorsStore.error, projectsStore.error, costsStore.error];
 
   return (
     <Router>
@@ -39,7 +41,7 @@ export default function App() {
         {/* Main content area */}
         <section className="p-6">
 
-          {errors && errors.map((e, i) => e && (<Error key={i} error={e} />))}
+          {errors && errors.map((e, i) => e && (<Error key={Date.now() + e} error={e} />))}
 
           {/* Routes */}
           <Routes>

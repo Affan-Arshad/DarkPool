@@ -41,7 +41,6 @@ const InvestmentsIndexPage = (props) => {
         // set values that user should not be able to change
         investment.type = "investment";
         investment.investor_id = investorId;
-        console.log(investment);
 
         addInvestment(investment)
             .then(() => {
@@ -91,7 +90,6 @@ const InvestmentsIndexPage = (props) => {
                                 <th className="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Amount</th>
                                 <th className="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Date</th>
                                 <th className="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Type</th>
-                                <th className="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Project</th>
                                 <th className="border border-slate-300 dark:border-slate-600 font-semibold p-4 text-slate-900 dark:text-slate-200 text-left">Action</th>
                             </tr>
                         </thead>

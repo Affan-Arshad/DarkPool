@@ -16,14 +16,6 @@ class DatabaseSeeder extends Seeder {
      * @return void
      */
     public function run() {
-        // \App\Models\User::factory(10)->create();
-
-        Investor::create([
-            'name' => 'Company Account',
-            'account_no' => '7770000022017',
-            'account_name' => 'OAuthX Pvt Ltd',
-        ]);
-
         Investor::factory(rand(100, 1000))->create()->each(function ($investor) {
             Investment::factory(rand(1, 4))->create([
                 'investor_id' => $investor->id
